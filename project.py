@@ -4,6 +4,7 @@ import tkinter.font as font
 unified_background = "#333333"
 unified_purple_color = "#8A2BE2"
 
+
 window = Tk()
 window.title("GUI created with tkinter")
 window.geometry("800x800")
