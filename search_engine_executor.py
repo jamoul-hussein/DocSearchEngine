@@ -1,43 +1,30 @@
 import requests
 import bs4
 
-text = "Web scraping"
 
-google_search_url = f'https://en.wikipedia.org/wiki/{text}'
+class SearchEngineExecutor:
+    def __init__(self):
+        self.__wiki_search_url = None
+        self.__search_results = {}
 
+    def document_search(self, search_index):
+        self.__wiki_search_url = f'https://en.wikipedia.org/wiki/{search_index}'
+        request_result = requests.get(self.__wiki_search_url)
 
-def hyperlinks_search(search_index):
-    request_result = requests.get(google_search_url)
+        soup = bs4.BeautifulSoup(request_result.text,
+                                 "html.parser")
 
-    soup = bs4.BeautifulSoup(request_result.text,
-                             "html.parser")
+        doc_title = self.__get_document_title(soup)
+        self.__search_results["title"] = doc_title
 
-    find_all_hyperlinks = soup.find('h1')
-    print(find_all_hyperlinks.text)
-    """
-    hyperlinks = []
-    for links in find_all_hyperlinks:
-        hyperlinks.append(links.get('href'))
-        print(hyperlinks)
+        doc_paragraph = self.__get_first_paragraph(soup)
+        self.__search_results["paragraph"] = doc_paragraph
 
-    return hyperlinks
-"""
+        return self.__search_results
 
-def optimzed_hyperlinks_search(search_index):
-    request_result = requests.get(google_search_url)
+    def __get_document_title(self, soup):
+        return soup.find('h1').text
 
-    soup = bs4.BeautifulSoup(request_result.text,
-                             "html.parser")
-
-    find_all_hyperlinks = soup.find_all('a')
-
-    hyperlinks = []
-    for link in find_all_hyperlinks:
-        hyperlinks.append(link)
-        print(hyperlinks)
-
-    return hyperlinks
-
-
-hyperlinks_search(text)
+    def __get_first_paragraph(self, soup):
+        return soup.find('p').text
 
