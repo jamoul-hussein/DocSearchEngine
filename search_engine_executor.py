@@ -29,5 +29,7 @@ class SearchEngineExecutor:
         return soup.find('h1').text
 
     def __get_two_paragraph(self, soup):
-        return soup.findAll('p')[0].text, soup.findAll('p')[1].text
+        if len(soup.findAll('p')) < 2:
+            return ['', 'Error: Nothing found!']
 
+        return soup.findAll('p')[0].text, soup.findAll('p')[1].text

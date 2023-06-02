@@ -57,21 +57,23 @@ class GUI:
         title = self.filter_search_result_title(search_results)
         paragraph1 = self.filter_search_result_paragraph1(search_results)
         paragraph2 = self.filter_search_result_paragraph2(search_results)
+
         self.__output_label.config(text=f"{title}\n{paragraph1}\n{paragraph2}")
 
         print(title)
-        print(paragraph)
+        print(paragraph1)
+        print(paragraph2)
 
     def __build_output_section(self):
         self.__output_label = Label(
             self.__window,
             text="Hey There! Search something :)",
             background="white",
-            font=("arial", 20),
+            font=("arial", 10),
             highlightthickness=4,
-            width=50,
-            height=10,
-            wraplength=800
+            width=150,
+            height=40,
+            wraplength=500
         )
         self.__output_label.config(highlightbackground="grey", highlightcolor="grey")
         self.__output_label.pack()
