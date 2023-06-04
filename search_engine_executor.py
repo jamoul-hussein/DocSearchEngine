@@ -1,5 +1,5 @@
 import requests
-import bs4
+from bs4 import BeautifulSoup
 
 
 class SearchEngineExecutor:
@@ -13,7 +13,7 @@ class SearchEngineExecutor:
         self.__wiki_search_url = f'https://en.wikipedia.org/wiki/{search_index}'
         request_result = requests.get(self.__wiki_search_url)
 
-        soup = bs4.BeautifulSoup(request_result.text,
+        soup = BeautifulSoup(request_result.text,
                                  "html.parser")
 
         doc_title = self.__get_document_title(soup)
